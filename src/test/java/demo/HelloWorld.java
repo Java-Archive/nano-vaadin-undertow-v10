@@ -15,6 +15,9 @@
  */
 package demo;
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.rapidpm.vaadin.nano.CoreUIService;
 
 
@@ -24,7 +27,12 @@ import org.rapidpm.vaadin.nano.CoreUIService;
 public class HelloWorld {
 
   public static void main(String[] args) {
-    new CoreUIService().startup();
+    new CoreUIService() {
+      @Override
+      public Set<Class<?>> setOfRouteAnnotatedClasses() {
+        return Collections.singleton(VaadinApp.class);
+      }
+    }.startup();
   }
 
 }

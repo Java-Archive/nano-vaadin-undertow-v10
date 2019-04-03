@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rapidpm.vaadin.nano;
+package demo;
 
+import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import org.rapidpm.dependencies.core.logger.HasLogger;
 
 
 @Route("")
