@@ -15,21 +15,6 @@
  */
 package org.rapidpm.vaadin.nano;
 
-import com.vaadin.flow.server.startup.RouteRegistryInitializer;
-import com.vaadin.flow.server.startup.ServletDeployer;
-import io.undertow.Undertow;
-import io.undertow.server.handlers.PathHandler;
-import io.undertow.servlet.Servlets;
-import io.undertow.servlet.api.DeploymentInfo;
-import io.undertow.servlet.api.DeploymentManager;
-import io.undertow.servlet.api.ServletContainerInitializerInfo;
-import org.rapidpm.dependencies.core.logger.HasLogger;
-import org.rapidpm.frp.model.Result;
-
-import javax.servlet.ServletException;
-
-import java.util.HashSet;
-
 import static io.undertow.Handlers.path;
 import static io.undertow.Handlers.redirect;
 import static java.lang.Integer.valueOf;
@@ -37,6 +22,24 @@ import static java.lang.System.getProperty;
 import static java.util.Collections.singletonList;
 import static org.rapidpm.frp.model.Result.failure;
 import static org.rapidpm.frp.model.Result.success;
+
+import java.util.HashSet;
+
+import javax.servlet.ServletException;
+
+import org.rapidpm.dependencies.core.logger.HasLogger;
+import org.rapidpm.frp.model.Result;
+
+import com.vaadin.flow.server.VaadinServlet;
+import com.vaadin.flow.server.startup.RouteRegistryInitializer;
+import com.vaadin.flow.server.startup.ServletDeployer;
+
+import io.undertow.Undertow;
+import io.undertow.server.handlers.PathHandler;
+import io.undertow.servlet.Servlets;
+import io.undertow.servlet.api.DeploymentInfo;
+import io.undertow.servlet.api.DeploymentManager;
+import io.undertow.servlet.api.ServletContainerInitializerInfo;
 
 /**
  *
@@ -64,6 +67,8 @@ public class CoreUIService implements HasLogger {
                   .setContextPath("/")
                   .setDeploymentName("ROOT.war")
                   .setDefaultEncoding("UTF-8")
+                  .setResourceManager(new MyResourceManager(
+                        VaadinServlet.class.getClassLoader()))
 //                  .addServlet(new ServletInfo("VaadinApp", VaadinServlet.class))
 //                  .addServlets(
 //                      servlet(
