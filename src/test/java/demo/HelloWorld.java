@@ -25,7 +25,6 @@ import org.rapidpm.vaadin.nano.CoreUIService;
  *
  */
 public class HelloWorld {
-
   public static void main(String[] args) {
     new CoreUIService() {
       @Override
@@ -34,5 +33,4 @@ public class HelloWorld {
       }
     }.startup();
   }
-
 }

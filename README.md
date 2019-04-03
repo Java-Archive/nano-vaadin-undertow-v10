@@ -16,17 +16,54 @@ there is no time and budget to create a demo project.
 You don´t want to copy paste all small things together.
 Here you will get a Nano-Project that will give you all in a second.
 
-Clone the repo and start editing the class ```HelloWorld```.
+Clone the repo and start editing the class ```HelloWorld``` and ```VaadinApp```.
 Nothing more. 
 
 ## How does it work?
-
-## CoreUIService
-
+Internally it will ramp up an Undertow. If you want to see how this is done, have a look inside
+the class ```CoreUIService```.
 
 ## How a developer can use this
+You as a developer can use it like it is shown in the demo folder inside the test src path.
+
+```java
+public class HelloWorld {
+  public static void main(String[] args) {
+    new CoreUIService() {
+      @Override
+      public Set<Class<?>> setOfRouteAnnotatedClasses() {
+        return Collections.singleton(VaadinApp.class);
+      }
+    }.startup();
+  }
+}
+```
 
 
+```java
+@Route("")
+public class VaadinApp extends Composite<Div> implements HasLogger {
+
+  public static final String BTN_CLICK_ME   = "btn-click-me";
+  public static final String LB_CLICK_COUNT = "lb-click-count";
+
+  private final Button         btnClickMe   = new Button("click me");
+  private final Span           lbClickCount = new Span("0");
+  private final VerticalLayout layout       = new VerticalLayout(btnClickMe, lbClickCount);
+
+  private int clickcount = 0;
+
+  public VaadinApp() {
+    btnClickMe.setId(BTN_CLICK_ME);
+    btnClickMe.addClickListener(event -> lbClickCount.setText(String.valueOf(++clickcount)));
+
+    lbClickCount.setId(LB_CLICK_COUNT);
+
+    logger().info("and now..  setting the main content.. ");
+    getContent().add(layout);
+  }
+}
+```
 
 Happy Coding.
 
