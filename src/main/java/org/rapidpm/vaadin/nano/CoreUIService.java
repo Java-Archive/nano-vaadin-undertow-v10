@@ -30,7 +30,6 @@ import javax.servlet.ServletException;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Result;
 
-import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.server.startup.RouteRegistryInitializer;
 import com.vaadin.flow.server.startup.ServletDeployer;
 
@@ -61,28 +60,18 @@ public class CoreUIService implements HasLogger {
 
 
   public void startup() {
+    final ClassLoader classLoader = CoreUIService.class.getClassLoader();
     DeploymentInfo servletBuilder
         = Servlets.deployment()
-                  .setClassLoader(CoreUIService.class.getClassLoader())
+                  .setClassLoader(classLoader)
                   .setContextPath("/")
                   .setDeploymentName("ROOT.war")
                   .setDefaultEncoding("UTF-8")
-                  .setResourceManager(new MyResourceManager(
-                        VaadinServlet.class.getClassLoader()))
-//                  .addServlet(new ServletInfo("VaadinApp", VaadinServlet.class))
-//                  .addServlets(
-//                      servlet(
-//                          VaadinServlet.class.getSimpleName(),
-//                          VaadinServlet.class
-//                      ).addMapping("/*")
-//                       .setAsyncSupported(true)
-//                  )
-
+                  .setResourceManager(new VaadinFlowResourceManager(classLoader))
                   .addServletContainerInitializer(new ServletContainerInitializerInfo(RouteRegistryInitializer.class,
                                                                                      new HashSet<>(singletonList(VaadinApp.class))
                   ))
                   .addListener(Servlets.listener(ServletDeployer.class));
-
 
     final DeploymentManager manager = Servlets
         .defaultContainer()

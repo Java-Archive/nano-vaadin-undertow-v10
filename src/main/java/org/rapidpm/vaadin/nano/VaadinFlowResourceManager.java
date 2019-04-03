@@ -9,7 +9,7 @@ import io.undertow.server.handlers.resource.ResourceChangeListener;
 import io.undertow.server.handlers.resource.ResourceManager;
 import io.undertow.server.handlers.resource.URLResource;
 
-public class MyResourceManager implements ResourceManager {
+public class VaadinFlowResourceManager implements ResourceManager {
 
   /**
    * The class loader that is used to load resources
@@ -20,11 +20,11 @@ public class MyResourceManager implements ResourceManager {
    */
   private final String prefix;
 
-  public MyResourceManager(final ClassLoader loader , final Package p) {
+  public VaadinFlowResourceManager(final ClassLoader loader , final Package p) {
     this(loader , p.getName().replace("." , "/"));
   }
 
-  public MyResourceManager(final ClassLoader classLoader , final String prefix) {
+  public VaadinFlowResourceManager(final ClassLoader classLoader , final String prefix) {
     this.classLoader = classLoader;
     if (prefix.isEmpty()) {
       this.prefix = "";
@@ -35,7 +35,7 @@ public class MyResourceManager implements ResourceManager {
     }
   }
 
-  public MyResourceManager(final ClassLoader classLoader) {
+  public VaadinFlowResourceManager(final ClassLoader classLoader) {
     this(classLoader , "");
   }
 
