@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.rapidpm</groupId>
     <artifactId>rapidpm-dependencies</artifactId>
-    <version>4.0.0</version>
+    <version>04.00.15-RPM</version>
   </parent>
 
 
@@ -40,15 +40,15 @@
     <name>Vaadin</name>
     <url>http://www.vaadin.com</url>
   </organization>
-  <url>https://github.com/vaadin-developer/nano-vaadin-v08</url>
+  <url>https://github.com/vaadin-developer/nano-vaadin-v10</url>
 
   <scm>
-    <url>https://github.com/vaadin-developer/nano-vaadin-v08</url>
+    <url>https://github.com/vaadin-developer/nano-vaadin-v10</url>
     <connection>
-      scm:git:https://github.com/vaadin-developer/nano-vaadin-v08.git
+      scm:git:https://github.com/vaadin-developer/nano-vaadin-v10.git
     </connection>
     <developerConnection>
-      scm:git:https://github.com/vaadin-developer/nano-vaadin-v08
+      scm:git:https://github.com/vaadin-developer/nano-vaadin-v10
     </developerConnection>
     <tag>HEAD</tag>
   </scm>
@@ -65,7 +65,7 @@
   <issueManagement>
     <system>Github</system>
     <url>
-      https://github.com/vaadin-developer/nano-vaadin-v08/issues
+      https://github.com/vaadin-developer/nano-vaadin-v10/issues
     </url>
   </issueManagement>
   <licenses>
@@ -78,19 +78,20 @@
   </licenses>
 
   <properties>
-    <!--technical-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>10</maven.compiler.source>
-    <maven.compiler.target>10</maven.compiler.target>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!--technical-->
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
 
     <!--RapidPM-->
-    <rapidpm-functional-reactive.version>0.7.0</rapidpm-functional-reactive.version>
-    <rapidpm-dependencies.version>4.0.0</rapidpm-dependencies.version>
+    <rapidpm-functional-reactive.version>01.00.02-RPM</rapidpm-functional-reactive.version>
+    <rapidpm-logger-adapter.version>01.00.01-RPM</rapidpm-logger-adapter.version>
 
-    <!--Vaadin-->
-    <vaadin.version>10.0.1</vaadin.version>
-
-    <undertow.version>2.0.9.Final</undertow.version>
+    <!--external-->
+    <vaadin.version>13.0.2</vaadin.version>
+    <undertow.version>2.0.19.Final</undertow.version>
 
     <!--logging-->
     <slf4j.version>1.7.25</slf4j.version>
@@ -114,8 +115,8 @@
   <dependencies>
     <dependency>
       <groupId>org.rapidpm</groupId>
-      <artifactId>rapidpm-dependencies-core-logger</artifactId>
-      <version>${rapidpm-dependencies.version}</version>
+      <artifactId>rapidpm-logger-adapter</artifactId>
+      <version>${rapidpm-logger-adapter.version}</version>
     </dependency>
 
     <dependency>
@@ -134,6 +135,12 @@
     <dependency>
       <groupId>io.undertow</groupId>
       <artifactId>undertow-servlet</artifactId>
+      <version>${undertow.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.undertow</groupId>
+      <artifactId>undertow-websockets-jsr</artifactId>
       <version>${undertow.version}</version>
     </dependency>
 

@@ -1,12 +1,12 @@
 /**
  * Copyright © 2017 Sven Ruppert (sven.ruppert@gmail.com)
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,12 +27,14 @@ import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Result;
 
 import javax.servlet.ServletException;
-import java.util.Set;
+
+import java.util.HashSet;
 
 import static io.undertow.Handlers.path;
 import static io.undertow.Handlers.redirect;
 import static java.lang.Integer.valueOf;
 import static java.lang.System.getProperty;
+import static java.util.Collections.singletonList;
 import static org.rapidpm.frp.model.Result.failure;
 import static org.rapidpm.frp.model.Result.success;
 
@@ -62,8 +64,17 @@ public class CoreUIService implements HasLogger {
                   .setContextPath("/")
                   .setDeploymentName("ROOT.war")
                   .setDefaultEncoding("UTF-8")
-                  .addServletContainerInitalizer(new ServletContainerInitializerInfo(RouteRegistryInitializer.class,
-                                                                                     Set.of(VaadinApp.class)
+//                  .addServlet(new ServletInfo("VaadinApp", VaadinServlet.class))
+//                  .addServlets(
+//                      servlet(
+//                          VaadinServlet.class.getSimpleName(),
+//                          VaadinServlet.class
+//                      ).addMapping("/*")
+//                       .setAsyncSupported(true)
+//                  )
+
+                  .addServletContainerInitializer(new ServletContainerInitializerInfo(RouteRegistryInitializer.class,
+                                                                                     new HashSet<>(singletonList(VaadinApp.class))
                   ))
                   .addListener(Servlets.listener(ServletDeployer.class));
 
@@ -74,7 +85,8 @@ public class CoreUIService implements HasLogger {
     manager.deploy();
 
     try {
-      PathHandler path = path(redirect("/")).addPrefixPath("/", manager.start());
+      PathHandler path = path(redirect("/"))
+          .addPrefixPath("/", manager.start());
       Undertow u = Undertow.builder()
                            .addHttpListener(valueOf(getProperty(CORE_UI_SERVER_PORT, CORE_UI_SERVER_PORT_DEFAULT)),
                                             getProperty(CORE_UI_SERVER_HOST, CORE_UI_SERVER_HOST_DEFAULT)
