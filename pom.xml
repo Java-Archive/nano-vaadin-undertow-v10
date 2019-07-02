@@ -95,13 +95,15 @@
     <vaadin.productionMode>true</vaadin.productionMode>
     <vaadin.version>14.0.0.rc3</vaadin.version>
     <undertow.version>2.0.21.Final</undertow.version>
+    <activateNodeJS_NPM>true</activateNodeJS_NPM>
+    <frontend-maven-plugin.nodeVersion>v10.16.0</frontend-maven-plugin.nodeVersion>
+    <frontend-maven-plugin.npmVersion>6.9.0</frontend-maven-plugin.npmVersion>
 
     <!--logging-->
     <slf4j.version>1.7.25</slf4j.version>
     <log4j-api.version>2.8.1</log4j-api.version>
 
-    <frontend-maven-plugin.nodeVersion>v10.16.0</frontend-maven-plugin.nodeVersion>
-    <frontend-maven-plugin.npmVersion>6.9.0</frontend-maven-plugin.npmVersion>
+
   </properties>
 
   <repositories>
