@@ -82,7 +82,7 @@
 
     <compiler.target>11</compiler.target>
     <!--technical-->
-    <!--    <maven.compiler.release>${compiler.target}</maven.compiler.release>-->
+    <maven.compiler.release>${compiler.target}</maven.compiler.release>
     <maven.compiler.target>${compiler.target}</maven.compiler.target>
     <maven.compiler.source>${compiler.target}</maven.compiler.source>
 
