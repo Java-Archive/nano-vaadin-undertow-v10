@@ -23,8 +23,8 @@
 
   <parent>
     <groupId>org.rapidpm</groupId>
-    <artifactId>rapidpm-dependencies</artifactId>
-    <version>04.01.01-RPM</version>
+    <artifactId>rapidpm-vaadin-dependencies-v14</artifactId>
+    <version>04.01.04-RPM</version>
   </parent>
 
 
@@ -77,75 +77,20 @@
   </licenses>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <compiler.target>11</compiler.target>
-    <!--technical-->
-    <maven.compiler.release>${compiler.target}</maven.compiler.release>
-    <maven.compiler.target>${compiler.target}</maven.compiler.target>
-    <maven.compiler.source>${compiler.target}</maven.compiler.source>
-
-    <!--Kotlin-->
-    <kotlin.compiler.jvmTarget>${compiler.target}</kotlin.compiler.jvmTarget>
-    <!--    <kotlin.version>1.3.40</kotlin.version>-->
+    <jdk.version>1.8</jdk.version>
+    <kotlin.version>1.3.41</kotlin.version>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
-    <!--external-->
-    <vaadin.productionMode>true</vaadin.productionMode>
-    <vaadin.version>14.0.0.rc3</vaadin.version>
-    <undertow.version>2.0.21.Final</undertow.version>
-    <activateNodeJS_NPM>true</activateNodeJS_NPM>
-    <frontend-maven-plugin.nodeVersion>v10.16.0</frontend-maven-plugin.nodeVersion>
-    <frontend-maven-plugin.npmVersion>6.9.0</frontend-maven-plugin.npmVersion>
+    <!--Vaadin-->
+    <vaadin-productionMode>false</vaadin-productionMode>
+    <vaadin-install-nodejs>true</vaadin-install-nodejs>
 
     <!--logging-->
     <slf4j.version>1.7.25</slf4j.version>
     <log4j-api.version>2.8.1</log4j-api.version>
 
-
+    <undertow.version>2.0.22.Final</undertow.version>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>central</id>
-      <url>https://repo1.maven.org/maven2/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <!-- Repository used by many Vaadin add-ons -->
-    <repository>
-      <id>Vaadin Directory</id>
-      <url>http://maven.vaadin.com/vaadin-addons</url>
-    </repository>
-    <!-- Repository needed for prerelease versions of Vaadin -->
-    <repository>
-      <id>Vaadin - Prereleases</id>
-      <url>https://maven.vaadin.com/vaadin-prereleases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <url>https://repo1.maven.org/maven2/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-    <!-- Repository needed for prerelease versions of Vaadin -->
-    <pluginRepository>
-      <id>Vaadin - Prereleases</id>
-      <url>https://maven.vaadin.com/vaadin-prereleases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencyManagement>
     <dependencies>
@@ -153,7 +98,7 @@
       <dependency>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-bom</artifactId>
-        <version>${vaadin.version}</version>
+        <version>${vaadin-v14.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -180,40 +125,10 @@
       <version>${undertow.version}</version>
     </dependency>
 
-    <!--Vaadin -->
     <dependency>
-      <groupId>com.vaadin</groupId>
-      <!-- Replace artifactId with vaadin-core to use only free components -->
-      <artifactId>vaadin</artifactId>
-      <exclusions>
-        <!-- Webjars are only needed when running in Vaadin 13 compatibility mode -->
-        <exclusion>
-          <groupId>com.vaadin.webjar</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.webjars.bowergithub.insites</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.webjars.bowergithub.polymer</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.webjars.bowergithub.polymerelements</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.webjars.bowergithub.vaadin</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.webjars.bowergithub.webcomponents</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
     </dependency>
-
 
     <dependency>
       <groupId>commons-io</groupId>
@@ -234,19 +149,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-maven-plugin</artifactId>
-        <version>${vaadin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-frontend</goal>
-              <goal>build-frontend</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -273,41 +175,4 @@
     </plugins>
   </build>
 
-
-  <profiles>
-    <profile>
-      <id>productionMode</id>
-      <activation>
-        <property>
-          <name>vaadin.productionMode</name>
-        </property>
-      </activation>
-
-
-      <dependencies>
-        <dependency>
-          <groupId>com.vaadin</groupId>
-          <artifactId>flow-server-production-mode</artifactId>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-maven-plugin</artifactId>
-            <version>${vaadin.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>copy-production-files</goal>
-                  <goal>package-for-production</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
